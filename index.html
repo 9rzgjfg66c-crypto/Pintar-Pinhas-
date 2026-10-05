@@ -3,831 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FinancePlan | Planejamento Financeiro</title>
-
+<title>FinancePlan | Controle e Planejamento Financeiro</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
-:root{
-  --azul:#183b5b;
-  --azul2:#24567e;
-  --fundo:#f4f7fa;
-  --branco:#fff;
-  --texto:#1f2937;
-  --cinza:#718096;
-  --borda:#e2e8f0;
-  --verde:#15805d;
-  --vermelho:#c84b4b;
-}
-
+:root{--navy:#173b5d;--navy2:#24577f;--bg:#f4f7fa;--card:#fff;--text:#1f2937;--muted:#718096;--border:#e2e8f0;--green:#16815d;--red:#c64a4a;--amber:#b7791f}
 *{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--fundo);
-  color:var(--texto);
-}
-
-.app{display:flex;min-height:100vh}
-
-.sidebar{
-  width:250px;
-  background:var(--azul);
-  color:white;
-  padding:28px 18px;
-}
-
-.logo{
-  font-size:24px;
-  font-weight:700;
-  margin-bottom:8px;
-}
-
-.logo-sub{
-  font-size:12px;
-  opacity:.7;
-  margin-bottom:35px;
-}
-
-.menu button{
-  width:100%;
-  display:block;
-  border:0;
-  background:transparent;
-  color:#dbe7f0;
-  text-align:left;
-  padding:14px;
-  margin-bottom:6px;
-  border-radius:9px;
-  cursor:pointer;
-  font-size:15px;
-}
-
-.menu button:hover,
-.menu button.ativo{
-  background:var(--azul2);
-  color:white;
-}
-
-.conteudo{
-  flex:1;
-  padding:32px;
-  overflow:auto;
-}
-
-.topo{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:25px;
-}
-
-.topo h1{font-size:28px}
-
-.topo p{
-  color:var(--cinza);
-  margin-top:5px;
-}
-
-.badge{
-  background:white;
-  border:1px solid var(--borda);
-  border-radius:9px;
-  padding:10px 14px;
-}
-
-.pagina{display:none}
-.pagina.ativa{display:block}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-bottom:22px;
-}
-
-.card,.painel{
-  background:white;
-  border:1px solid var(--borda);
-  border-radius:14px;
-  padding:20px;
-}
-
-.card small{color:var(--cinza)}
-.card h2{margin-top:9px;font-size:25px}
-
-.verde{color:var(--verde)}
-.vermelho{color:var(--vermelho)}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.painel{margin-bottom:18px}
-.painel h3{margin-bottom:18px}
-
-form{
-  display:grid;
-  gap:12px;
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  border:1px solid var(--borda);
-  border-radius:8px;
-  background:white;
-  font-size:14px;
-}
-
-.botao{
-  border:0;
-  background:var(--azul);
-  color:white;
-  border-radius:8px;
-  padding:12px 16px;
-  cursor:pointer;
-  font-weight:600;
-}
-
-.botao:hover{background:var(--azul2)}
-
-.excluir{
-  background:#fbeaea;
-  color:var(--vermelho);
-  border:0;
-  border-radius:6px;
-  padding:6px 9px;
-  cursor:pointer;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th,td{
-  text-align:left;
-  padding:11px 7px;
-  border-bottom:1px solid var(--borda);
-  font-size:14px;
-}
-
-th{
-  color:var(--cinza);
-  font-size:12px;
-}
-
-.vazio{
-  color:var(--cinza);
-  padding:25px 0;
-  text-align:center;
-}
-
-.meta{
-  margin-top:18px;
-  border-top:1px solid var(--borda);
-  padding-top:15px;
-}
-
-.barra{
-  width:100%;
-  height:8px;
-  background:#e8edf2;
-  border-radius:20px;
-  margin-top:8px;
-  overflow:hidden;
-}
-
-.barra div{
-  height:100%;
-  background:var(--azul2);
-}
-
-@media(max-width:900px){
-  .app{display:block}
-  .sidebar{width:100%}
-  .conteudo{padding:18px}
-  .cards,.grid{grid-template-columns:1fr}
-}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+.app{display:flex;min-height:100vh}.sidebar{width:255px;background:var(--navy);color:#fff;padding:28px 18px;position:fixed;inset:0 auto 0 0}
+.logo{font-size:24px;font-weight:800}.sub{font-size:12px;opacity:.72;margin:6px 0 30px}
+.menu button{width:100%;border:0;background:transparent;color:#dce7f0;text-align:left;padding:14px;border-radius:9px;margin:4px 0;cursor:pointer;font-size:15px}
+.menu button:hover,.menu button.active{background:var(--navy2);color:#fff}
+main{margin-left:255px;width:calc(100% - 255px);padding:30px}.page{display:none}.page.active{display:block}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:15px}.header h1{font-size:28px}.header p{color:var(--muted);margin-top:5px}
+.pill{background:#fff;border:1px solid var(--border);padding:10px 14px;border-radius:9px;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}.card,.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:19px}
+.card small{color:var(--muted)}.card h2{margin-top:9px;font-size:24px}.green{color:var(--green)}.red{color:var(--red)}.amber{color:var(--amber)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{margin-bottom:18px}.panel h3{margin-bottom:16px}
+form{display:grid;gap:11px}input,select{width:100%;padding:11px;border:1px solid var(--border);border-radius:8px;background:#fff;font-size:14px}
+.btn{border:0;background:var(--navy);color:#fff;padding:11px 15px;border-radius:8px;font-weight:700;cursor:pointer}.btn:hover{background:var(--navy2)}
+.btn-sm{border:0;border-radius:7px;padding:6px 9px;cursor:pointer}.danger{background:#fbe9e9;color:var(--red)}
+table{width:100%;border-collapse:collapse}th,td{padding:10px 7px;border-bottom:1px solid var(--border);text-align:left;font-size:14px}th{font-size:12px;color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:22px}.progress{height:8px;background:#e8edf2;border-radius:10px;overflow:hidden;margin:8px 0}.progress div{height:100%;background:var(--navy2)}
+.goal{padding:15px 0;border-top:1px solid var(--border)}.goal:first-child{border-top:0}.note{font-size:12px;color:var(--muted);margin-top:12px}
+@media(max-width:900px){.sidebar{position:relative;width:100%}.app{display:block}main{margin-left:0;width:100%;padding:18px}.cards,.grid2{grid-template-columns:1fr}.header{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
-
 <body>
-
 <div class="app">
-
 <aside class="sidebar">
-
   <div class="logo">FinancePlan</div>
-  <div class="logo-sub">Controle & Planejamento</div>
-
-  <div class="menu">
-    <button class="ativo" onclick="pagina('dashboard',this)">▦ Dashboard</button>
-    <button onclick="pagina('lancamentos',this)">↕ Lançamentos</button>
-    <button onclick="pagina('planejamento',this)">◎ Planejamento</button>
-    <button onclick="pagina('metas',this)">☆ Metas</button>
-  </div>
-
+  <div class="sub">Controle & Planejamento Financeiro</div>
+  <nav class="menu">
+    <button class="active" onclick="openPage('dashboard',this)">▦ Dashboard</button>
+    <button onclick="openPage('transactions',this)">↕ Lançamentos</button>
+    <button onclick="openPage('planning',this)">◎ Planejamento</button>
+    <button onclick="openPage('goals',this)">☆ Metas</button>
+  </nav>
 </aside>
 
-<main class="conteudo">
-
-<section id="dashboard" class="pagina ativa">
-
-<div class="topo">
-  <div>
-    <h1>Visão financeira</h1>
-    <p>Resumo do seu planejamento financeiro.</p>
+<main>
+<section id="dashboard" class="page active">
+  <div class="header"><div><h1>Visão financeira</h1><p>Resumo das suas finanças e do planejamento.</p></div><div class="pill" id="currentMonth"></div></div>
+  <div class="cards">
+    <div class="card"><small>Saldo atual</small><h2 id="balance">R$ 0,00</h2></div>
+    <div class="card"><small>Receitas</small><h2 class="green" id="income">R$ 0,00</h2></div>
+    <div class="card"><small>Despesas</small><h2 class="red" id="expenses">R$ 0,00</h2></div>
+    <div class="card"><small>Taxa de economia</small><h2 id="savingRate">0%</h2></div>
   </div>
-  <div class="badge" id="mesAtual"></div>
-</div>
-
-<div class="cards">
-
-<div class="card">
-  <small>Saldo atual</small>
-  <h2 id="saldo">R$ 0,00</h2>
-</div>
-
-<div class="card">
-  <small>Receitas</small>
-  <h2 class="verde" id="totalReceitas">R$ 0,00</h2>
-</div>
-
-<div class="card">
-  <small>Despesas</small>
-  <h2 class="vermelho" id="totalDespesas">R$ 0,00</h2>
-</div>
-
-<div class="card">
-  <small>Taxa de economia</small>
-  <h2 id="taxaEconomia">0%</h2>
-</div>
-
-</div>
-
-<div class="grid">
-
-<div class="painel">
-<h3>Receitas x despesas</h3>
-<canvas id="graficoResumo"></canvas>
-</div>
-
-<div class="painel">
-<h3>Despesas por categoria</h3>
-<canvas id="graficoCategorias"></canvas>
-</div>
-
-</div>
-
+  <div class="grid2">
+    <div class="panel"><h3>Receitas x despesas</h3><canvas id="summaryChart"></canvas></div>
+    <div class="panel"><h3>Despesas por categoria</h3><canvas id="categoryChart"></canvas></div>
+  </div>
 </section>
 
-
-<section id="lancamentos" class="pagina">
-
-<div class="topo">
-<div>
-<h1>Lançamentos</h1>
-<p>Cadastre todas as entradas e saídas.</p>
-</div>
-</div>
-
-<div class="grid">
-
-<div class="painel">
-
-<h3>Novo lançamento</h3>
-
-<form id="formLancamento">
-
-<select id="tipo" required>
-<option value="receita">Receita</option>
-<option value="despesa">Despesa</option>
-</select>
-
-<input id="descricao" placeholder="Descrição" required>
-
-<input id="valor" type="number" min="0" step="0.01"
-placeholder="Valor em R$" required>
-
-<select id="categoria">
-<option>Trabalho</option>
-<option>Moradia</option>
-<option>Alimentação</option>
-<option>Transporte</option>
-<option>Saúde</option>
-<option>Estudos</option>
-<option>Lazer</option>
-<option>Impostos</option>
-<option>Outros</option>
-</select>
-
-<input id="data" type="date" required>
-
-<button class="botao">Adicionar lançamento</button>
-
-</form>
-
-</div>
-
-
-<div class="painel">
-
-<h3>Histórico</h3>
-
-<div style="overflow:auto">
-
-<table>
-
-<thead>
-<tr>
-<th>Descrição</th>
-<th>Categoria</th>
-<th>Valor</th>
-<th></th>
-</tr>
-</thead>
-
-<tbody id="listaLancamentos"></tbody>
-
-</table>
-
-<div id="semLancamentos" class="vazio">
-Nenhum lançamento cadastrado.
-</div>
-
-</div>
-</div>
-
-</div>
+<section id="transactions" class="page">
+  <div class="header"><div><h1>Lançamentos</h1><p>Cadastre entradas e saídas.</p></div></div>
+  <div class="grid2">
+    <div class="panel"><h3>Novo lançamento</h3>
+      <form id="transactionForm">
+        <select id="type"><option value="receita">Receita</option><option value="despesa">Despesa</option></select>
+        <input id="description" placeholder="Descrição" required>
+        <input id="amount" type="number" min="0.01" step="0.01" placeholder="Valor em R$" required>
+        <select id="category"><option>Trabalho</option><option>Moradia</option><option>Alimentação</option><option>Transporte</option><option>Saúde</option><option>Estudos</option><option>Lazer</option><option>Impostos</option><option>Outros</option></select>
+        <input id="date" type="date" required>
+        <button class="btn">Adicionar lançamento</button>
+      </form>
+    </div>
+    <div class="panel"><h3>Histórico</h3><div style="overflow:auto"><table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Valor</th><th></th></tr></thead><tbody id="transactionList"></tbody></table></div><div id="noTransactions" class="empty">Nenhum lançamento cadastrado.</div></div>
+  </div>
 </section>
 
-
-<section id="planejamento" class="pagina">
-
-<div class="topo">
-<div>
-<h1>Planejamento mensal</h1>
-<p>Determine quanto pretende gastar em cada categoria.</p>
-</div>
-</div>
-
-<div class="grid">
-
-<div class="painel">
-
-<h3>Definir orçamento</h3>
-
-<form id="formOrcamento">
-
-<select id="categoriaOrcamento">
-<option>Moradia</option>
-<option>Alimentação</option>
-<option>Transporte</option>
-<option>Saúde</option>
-<option>Estudos</option>
-<option>Lazer</option>
-<option>Impostos</option>
-<option>Outros</option>
-</select>
-
-<input id="valorOrcamento"
-type="number"
-min="0"
-step="0.01"
-placeholder="Valor planejado"
-required>
-
-<button class="botao">
-Salvar planejamento
-</button>
-
-</form>
-
-</div>
-
-<div class="painel">
-
-<h3>Planejado x realizado</h3>
-
-<table>
-<thead>
-<tr>
-<th>Categoria</th>
-<th>Planejado</th>
-<th>Realizado</th>
-<th>Disponível</th>
-</tr>
-</thead>
-
-<tbody id="listaOrcamentos"></tbody>
-</table>
-
-<div id="semOrcamentos" class="vazio">
-Nenhum orçamento definido.
-</div>
-
-</div>
-
-</div>
+<section id="planning" class="page">
+  <div class="header"><div><h1>Planejamento mensal</h1><p>Defina limites e compare o planejado com o realizado.</p></div></div>
+  <div class="grid2">
+    <div class="panel"><h3>Definir orçamento</h3>
+      <form id="budgetForm">
+        <select id="budgetCategory"><option>Moradia</option><option>Alimentação</option><option>Transporte</option><option>Saúde</option><option>Estudos</option><option>Lazer</option><option>Impostos</option><option>Outros</option></select>
+        <input id="budgetAmount" type="number" min="0" step="0.01" placeholder="Valor planejado" required>
+        <button class="btn">Salvar planejamento</button>
+      </form>
+    </div>
+    <div class="panel"><h3>Planejado x realizado</h3><div style="overflow:auto"><table><thead><tr><th>Categoria</th><th>Planejado</th><th>Realizado</th><th>Disponível</th></tr></thead><tbody id="budgetList"></tbody></table></div><div id="noBudgets" class="empty">Nenhum orçamento definido.</div></div>
+  </div>
 </section>
 
-
-<section id="metas" class="pagina">
-
-<div class="topo">
-<div>
-<h1>Metas financeiras</h1>
-<p>Organize seus objetivos e reservas.</p>
-</div>
-</div>
-
-<div class="grid">
-
-<div class="painel">
-
-<h3>Nova meta</h3>
-
-<form id="formMeta">
-
-<input id="nomeMeta"
-placeholder="Ex.: Reserva de emergência"
-required>
-
-<input id="valorMeta"
-type="number"
-min="0"
-step="0.01"
-placeholder="Valor da meta"
-required>
-
-<input id="dataMeta" type="date">
-
-<button class="botao">
-Criar meta
-</button>
-
-</form>
-
-</div>
-
-<div class="painel">
-
-<h3>Minhas metas</h3>
-
-<div id="listaMetas"></div>
-
-<div id="semMetas" class="vazio">
-Nenhuma meta cadastrada.
-</div>
-
-</div>
-
-</div>
-
+<section id="goals" class="page">
+  <div class="header"><div><h1>Metas financeiras</h1><p>Organize reservas e objetivos futuros.</p></div></div>
+  <div class="grid2">
+    <div class="panel"><h3>Nova meta</h3>
+      <form id="goalForm">
+        <input id="goalName" placeholder="Ex.: Reserva de emergência" required>
+        <input id="goalTarget" type="number" min="0.01" step="0.01" placeholder="Valor da meta" required>
+        <input id="goalSaved" type="number" min="0" step="0.01" placeholder="Valor já reservado">
+        <input id="goalDate" type="date">
+        <button class="btn">Criar meta</button>
+      </form>
+    </div>
+    <div class="panel"><h3>Minhas metas</h3><div id="goalList"></div><div id="noGoals" class="empty">Nenhuma meta cadastrada.</div></div>
+  </div>
+  <p class="note">Nesta primeira versão os dados ficam salvos somente neste navegador. A próxima etapa é conectar ao Supabase para login e armazenamento em nuvem.</p>
 </section>
-
 </main>
 </div>
 
-
 <script>
+const K={t:"financeplan_transactions",b:"financeplan_budgets",g:"financeplan_goals"};
+let transactions=JSON.parse(localStorage.getItem(K.t)||"[]");
+let budgets=JSON.parse(localStorage.getItem(K.b)||"[]");
+let goals=JSON.parse(localStorage.getItem(K.g)||"[]");
+let summaryChart,categoryChart;
+const $=id=>document.getElementById(id);
+const money=v=>Number(v||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+function save(){localStorage.setItem(K.t,JSON.stringify(transactions));localStorage.setItem(K.b,JSON.stringify(budgets));localStorage.setItem(K.g,JSON.stringify(goals))}
+function openPage(id,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.querySelectorAll(".menu button").forEach(x=>x.classList.remove("active"));btn.classList.add("active")}
+$("currentMonth").textContent=new Date().toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
+$("date").value=new Date().toISOString().slice(0,10);
 
-let lancamentos =
-JSON.parse(localStorage.getItem("financeplan_lancamentos")) || [];
+$("transactionForm").addEventListener("submit",e=>{e.preventDefault();transactions.push({id:Date.now(),type:$("type").value,description:$("description").value.trim(),amount:Number($("amount").value),category:$("category").value,date:$("date").value});save();e.target.reset();$("date").value=new Date().toISOString().slice(0,10);render()});
+$("budgetForm").addEventListener("submit",e=>{e.preventDefault();const category=$("budgetCategory").value,amount=Number($("budgetAmount").value);const old=budgets.find(x=>x.category===category);old?old.amount=amount:budgets.push({category,amount});save();e.target.reset();render()});
+$("goalForm").addEventListener("submit",e=>{e.preventDefault();goals.push({id:Date.now(),name:$("goalName").value.trim(),target:Number($("goalTarget").value),saved:Number($("goalSaved").value||0),date:$("goalDate").value});save();e.target.reset();render()});
+function removeTransaction(id){transactions=transactions.filter(x=>x.id!==id);save();render()}
+function removeGoal(id){goals=goals.filter(x=>x.id!==id);save();render()}
 
-let orcamentos =
-JSON.parse(localStorage.getItem("financeplan_orcamentos")) || [];
-
-let metas =
-JSON.parse(localStorage.getItem("financeplan_metas")) || [];
-
-let chartResumo;
-let chartCategorias;
-
-function moeda(valor){
- return Number(valor).toLocaleString(
-   "pt-BR",
-   {style:"currency",currency:"BRL"}
- );
+function renderTransactions(){
+ const body=$("transactionList");body.innerHTML="";$("noTransactions").style.display=transactions.length?"none":"block";
+ [...transactions].sort((a,b)=>String(b.date).localeCompare(String(a.date))).forEach(x=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${x.date?x.date.split("-").reverse().join("/"):""}</td><td>${x.description}</td><td>${x.category}</td><td class="${x.type==="receita"?"green":"red"}">${x.type==="receita"?"+":"-"} ${money(x.amount)}</td><td><button class="btn-sm danger" onclick="removeTransaction(${x.id})">Excluir</button></td>`;body.appendChild(tr)})
 }
-
-function salvar(){
- localStorage.setItem(
-   "financeplan_lancamentos",
-   JSON.stringify(lancamentos)
- );
-
- localStorage.setItem(
-   "financeplan_orcamentos",
-   JSON.stringify(orcamentos)
- );
-
- localStorage.setItem(
-   "financeplan_metas",
-   JSON.stringify(metas)
- );
+function renderBudgets(){
+ const body=$("budgetList");body.innerHTML="";$("noBudgets").style.display=budgets.length?"none":"block";
+ budgets.forEach(b=>{const spent=transactions.filter(x=>x.type==="despesa"&&x.category===b.category).reduce((s,x)=>s+x.amount,0),left=b.amount-spent;body.innerHTML+=`<tr><td>${b.category}</td><td>${money(b.amount)}</td><td>${money(spent)}</td><td class="${left<0?"red":"green"}">${money(left)}</td></tr>`})
 }
-
-function pagina(id,botao){
-
- document.querySelectorAll(".pagina")
- .forEach(p=>p.classList.remove("ativa"));
-
- document.getElementById(id)
- .classList.add("ativa");
-
- document.querySelectorAll(".menu button")
- .forEach(b=>b.classList.remove("ativo"));
-
- botao.classList.add("ativo");
+function renderGoals(){
+ const box=$("goalList");box.innerHTML="";$("noGoals").style.display=goals.length?"none":"block";
+ goals.forEach(g=>{const p=g.target?Math.min(100,(g.saved/g.target)*100):0;box.innerHTML+=`<div class="goal"><div style="display:flex;justify-content:space-between;gap:10px"><strong>${g.name}</strong><button class="btn-sm danger" onclick="removeGoal(${g.id})">Excluir</button></div><div style="color:var(--muted);margin-top:5px">${money(g.saved)} de ${money(g.target)}${g.date?" • até "+g.date.split("-").reverse().join("/"):""}</div><div class="progress"><div style="width:${p}%"></div></div><small>${p.toFixed(0)}% concluído</small></div>`})
 }
-
-document.getElementById("mesAtual").innerText =
-new Date().toLocaleDateString(
- "pt-BR",
- {month:"long",year:"numeric"}
-);
-
-document.getElementById("data").value =
-new Date().toISOString().split("T")[0];
-
-
-document.getElementById("formLancamento")
-.addEventListener("submit",function(e){
-
- e.preventDefault();
-
- lancamentos.push({
-   id:Date.now(),
-   tipo:document.getElementById("tipo").value,
-   descricao:document.getElementById("descricao").value,
-   valor:Number(document.getElementById("valor").value),
-   categoria:document.getElementById("categoria").value,
-   data:document.getElementById("data").value
- });
-
- salvar();
-
- this.reset();
-
- document.getElementById("data").value =
- new Date().toISOString().split("T")[0];
-
- atualizar();
-});
-
-
-function excluirLancamento(id){
-
- lancamentos =
- lancamentos.filter(l=>l.id!==id);
-
- salvar();
- atualizar();
+function renderCharts(income,expenses){
+ if(summaryChart)summaryChart.destroy();if(categoryChart)categoryChart.destroy();
+ summaryChart=new Chart($("summaryChart"),{type:"bar",data:{labels:["Receitas","Despesas"],datasets:[{data:[income,expenses],label:"Valor (R$)"}]},options:{responsive:true,plugins:{legend:{display:false}}}});
+ const cats={};transactions.filter(x=>x.type==="despesa").forEach(x=>cats[x.category]=(cats[x.category]||0)+x.amount);
+ categoryChart=new Chart($("categoryChart"),{type:"doughnut",data:{labels:Object.keys(cats),datasets:[{data:Object.values(cats)}]},options:{responsive:true}})
 }
-
-
-document.getElementById("formOrcamento")
-.addEventListener("submit",function(e){
-
- e.preventDefault();
-
- const categoria =
- document.getElementById("categoriaOrcamento").value;
-
- const valor =
- Number(document.getElementById("valorOrcamento").value);
-
- const existente =
- orcamentos.find(o=>o.categoria===categoria);
-
- if(existente){
-   existente.valor=valor;
- }else{
-   orcamentos.push({categoria,valor});
- }
-
- salvar();
- this.reset();
- atualizar();
-});
-
-
-document.getElementById("formMeta")
-.addEventListener("submit",function(e){
-
- e.preventDefault();
-
- metas.push({
-   id:Date.now(),
-   nome:document.getElementById("nomeMeta").value,
-   valor:Number(document.getElementById("valorMeta").value),
-   acumulado:0,
-   data:document.getElementById("dataMeta").value
- });
-
- salvar();
- this.reset();
- atualizar();
-});
-
-
-function renderLancamentos(){
-
- const corpo =
- document.getElementById("listaLancamentos");
-
- corpo.innerHTML="";
-
- document.getElementById("semLancamentos").style.display =
- lancamentos.length ? "none" : "block";
-
- [...lancamentos]
- .reverse()
- .forEach(l=>{
-
- const tr=document.createElement("tr");
-
- tr.innerHTML=`
- <td>${l.descricao}</td>
- <td>${l.categoria}</td>
- <td class="${l.tipo==="receita"?"verde":"vermelho"}">
- ${l.tipo==="receita"?"+":"-"} ${moeda(l.valor)}
- </td>
- <td>
- <button class="excluir"
- onclick="excluirLancamento(${l.id})">Excluir</button>
- </td>`;
-
- corpo.appendChild(tr);
-
- });
+function render(){
+ const income=transactions.filter(x=>x.type==="receita").reduce((s,x)=>s+x.amount,0);
+ const expenses=transactions.filter(x=>x.type==="despesa").reduce((s,x)=>s+x.amount,0);
+ const balance=income-expenses,rate=income?balance/income*100:0;
+ $("income").textContent=money(income);$("expenses").textContent=money(expenses);$("balance").textContent=money(balance);$("balance").className=balance<0?"red":"green";$("savingRate").textContent=rate.toFixed(1)+"%";
+ renderTransactions();renderBudgets();renderGoals();renderCharts(income,expenses)
 }
-
-
-function renderOrcamentos(){
-
- const corpo =
- document.getElementById("listaOrcamentos");
-
- corpo.innerHTML="";
-
- document.getElementById("semOrcamentos").style.display =
- orcamentos.length ? "none" : "block";
-
- orcamentos.forEach(o=>{
-
- const gasto =
- lancamentos
- .filter(l=>
-   l.tipo==="despesa" &&
-   l.categoria===o.categoria
- )
- .reduce((s,l)=>s+l.valor,0);
-
- const disponivel=o.valor-gasto;
-
- corpo.innerHTML+=`
- <tr>
- <td>${o.categoria}</td>
- <td>${moeda(o.valor)}</td>
- <td>${moeda(gasto)}</td>
- <td class="${disponivel<0?"vermelho":"verde"}">
- ${moeda(disponivel)}
- </td>
- </tr>`;
- });
-}
-
-
-function renderMetas(){
-
- const area=document.getElementById("listaMetas");
-
- area.innerHTML="";
-
- document.getElementById("semMetas").style.display =
- metas.length ? "none" : "block";
-
- metas.forEach(m=>{
-
- const progresso =
- m.valor>0
- ? Math.min(100,(m.acumulado/m.valor)*100)
- : 0;
-
- area.innerHTML+=`
- <div class="meta">
- <strong>${m.nome}</strong>
- <div style="color:#718096;margin-top:5px">
- Objetivo: ${moeda(m.valor)}
- ${m.data ? " • até "+m.data : ""}
- </div>
-
- <div class="barra">
- <div style="width:${progresso}%"></div>
- </div>
-
- <small>${progresso.toFixed(0)}% concluído</small>
- </div>`;
- });
-}
-
-
-function renderGraficos(receitas,despesas){
-
- if(chartResumo) chartResumo.destroy();
- if(chartCategorias) chartCategorias.destroy();
-
- chartResumo =
- new Chart(
- document.getElementById("graficoResumo"),
- {
-   type:"bar",
-   data:{
-     labels:["Receitas","Despesas"],
-     datasets:[{
-       label:"Valor (R$)",
-       data:[receitas,despesas]
-     }]
-   },
-   options:{
-     responsive:true,
-     plugins:{legend:{display:false}}
-   }
- }
- );
-
- const categorias={};
-
- lancamentos
- .filter(l=>l.tipo==="despesa")
- .forEach(l=>{
-   categorias[l.categoria] =
-   (categorias[l.categoria]||0)+l.valor;
- });
-
- chartCategorias =
- new Chart(
- document.getElementById("graficoCategorias"),
- {
-   type:"doughnut",
-   data:{
-     labels:Object.keys(categorias),
-     datasets:[{
-       data:Object.values(categorias)
-     }]
-   },
-   options:{responsive:true}
- }
- );
-}
-
-
-function atualizar(){
-
- const receitas =
- lancamentos
- .filter(l=>l.tipo==="receita")
- .reduce((s,l)=>s+l.valor,0);
-
- const despesas =
- lancamentos
- .filter(l=>l.tipo==="despesa")
- .reduce((s,l)=>s+l.valor,0);
-
- const saldo=receitas-despesas;
-
- document.getElementById("totalReceitas").innerText =
- moeda(receitas);
-
- document.getElementById("totalDespesas").innerText =
- moeda(despesas);
-
- document.getElementById("saldo").innerText =
- moeda(saldo);
-
- const taxa =
- receitas>0
- ? (saldo/receitas)*100
- : 0;
-
- document.getElementById("taxaEconomia").innerText =
- taxa.toFixed(1)+"%";
-
- renderLancamentos();
- renderOrcamentos();
- renderMetas();
- renderGraficos(receitas,despesas);
-}
-
-atualizar();
-
+render();
 </script>
-
 </body>
 </html>
